@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import "./portfolio.css";
+
+/* ── Data ─────────────────────────────────────────────────── */
 
 const NAV = ["About", "Skills", "Projects", "Timeline", "Contact"];
 
 const SKILLS = [
   {
     category: "Mobile",
-    color: "#0e7490",
+    color: "#0d7a77",
     items: [
       "Flutter",
       "Dart",
@@ -20,12 +23,12 @@ const SKILLS = [
   },
   {
     category: "Frontend",
-    color: "#7c3aed",
+    color: "#6d28d9",
     items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js"],
   },
   {
     category: "Backend",
-    color: "#059669",
+    color: "#065f46",
     items: [
       "Node.js",
       "NestJS",
@@ -38,8 +41,8 @@ const SKILLS = [
     ],
   },
   {
-    category: "DevOps",
-    color: "#d97706",
+    category: "DevOps & Tools",
+    color: "#92400e",
     items: ["Docker", "AWS", "GCP", "GitHub Actions", "Linux", "Figma"],
   },
 ];
@@ -47,31 +50,35 @@ const SKILLS = [
 const PROJECTS = [
   {
     title: "EagleLion Mobile App",
-    desc: "Full-featured enterprise mobile application built with Flutter and Firebase, serving thousands of users across Ethiopia.",
+    desc: "Enterprise-grade Flutter app with Firebase backend, serving 10,000+ active users across Ethiopia with real-time sync and offline support.",
     tags: ["Flutter", "Firebase", "BLoC", "Riverpod"],
-    color: "#0e7490",
+    color: "#0d7a77",
     stat: "10k+ users",
+    href: "https://github.com/jemalaman",
   },
   {
     title: "Marsa Platform",
-    desc: "Full-stack web platform for a startup — real-time data, scalable backend, deployed on AWS.",
+    desc: "Full-stack web platform for a startup — real-time data pipelines, scalable REST API, deployed on AWS with CI/CD via GitHub Actions.",
     tags: ["React", "Node.js", "PostgreSQL", "AWS"],
-    color: "#7c3aed",
+    color: "#6d28d9",
     stat: "Production",
+    href: "https://github.com/jemalaman",
   },
   {
     title: "Flutter GPU Renderer",
-    desc: "Custom rendering engine experiment using Flutter's Impeller API for high-performance 2D graphics.",
+    desc: "Custom rendering engine experiment using Flutter's Impeller API for high-performance 2D graphics and shader-driven animations.",
     tags: ["Flutter", "Dart", "Impeller", "GPU"],
-    color: "#059669",
+    color: "#065f46",
     stat: "Open source",
+    href: "https://github.com/jemalaman",
   },
   {
-    title: "TFLite on Flutter",
-    desc: "On-device machine learning pipeline — image classification running entirely offline on mobile hardware.",
+    title: "On-Device ML with TFLite",
+    desc: "Mobile machine learning pipeline — image classification running entirely offline on device hardware, achieving 94% accuracy.",
     tags: ["TensorFlow Lite", "Flutter", "Python", "ML"],
-    color: "#d97706",
+    color: "#92400e",
     stat: "94% accuracy",
+    href: "https://github.com/jemalaman",
   },
 ];
 
@@ -80,39 +87,119 @@ const TIMELINE = [
     year: "2020",
     role: "Software Engineering Student",
     org: "Jimma University Institute of Technology",
-    color: "#0e7490",
+    color: "#0d7a77",
   },
   {
     year: "2022",
     role: "Self-directed Flutter Study",
-    org: "Independent",
-    color: "#7c3aed",
+    org: "Independent — built first production apps",
+    color: "#6d28d9",
   },
   {
     year: "2023",
     role: "Full-Stack Developer",
     org: "Marsa Startup",
-    color: "#059669",
+    color: "#065f46",
   },
   {
     year: "2024",
     role: "Flutter Developer",
     org: "EagleLion System Technology",
-    color: "#d97706",
+    color: "#92400e",
   },
   {
     year: "2024",
     role: "Teaching Assistant",
     org: "Jimma University",
-    color: "#e11d48",
+    color: "#be123c",
   },
   {
     year: "Now",
     role: "Open Source & Community",
-    org: "AI · Emerging Technology",
-    color: "#06b6d4",
+    org: "AI · Emerging Technology · Speaking",
+    color: "#0284c7",
   },
 ];
+
+const ABOUT_CARDS = [
+  {
+    label: "Education",
+    value: "Jimma University Institute of Technology",
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Company",
+    value: "EagleLion System Technology",
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2" y="7" width="20" height="14" rx="2" />
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      </svg>
+    ),
+  },
+  {
+    label: "Location",
+    value: "Jimma, Ethiopia",
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+        <circle cx="12" cy="9" r="2.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Focus",
+    value: "Flutter · AI · Open Source",
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+  },
+];
+
+/* ── Helpers ───────────────────────────────────────────────── */
 
 function useInView(ref: React.RefObject<HTMLElement>) {
   const [visible, setVisible] = useState(false);
@@ -121,7 +208,7 @@ function useInView(ref: React.RefObject<HTMLElement>) {
       ([e]) => {
         if (e.isIntersecting) setVisible(true);
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
@@ -129,39 +216,109 @@ function useInView(ref: React.RefObject<HTMLElement>) {
   return visible;
 }
 
-function Section({
-  id,
+function Reveal({
   children,
   className = "",
 }: {
-  id: string;
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref as React.RefObject<HTMLElement>);
   return (
-    <section
-      id={id}
+    <div
       ref={ref}
-      className={`transition-all duration-700 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      } ${className}`}
+      className={`reveal ${visible ? "visible" : ""} ${className}`}
     >
       {children}
-    </section>
+    </div>
   );
 }
+
+/* ── Icons ─────────────────────────────────────────────────── */
+
+const IconArrow = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="7" y1="17" x2="17" y2="7" />
+    <polyline points="7 7 17 7 17 17" />
+  </svg>
+);
+const IconGithub = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+const IconLinkedin = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+const IconTelegram = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+  </svg>
+);
+const IconMail = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
+const IconPin = () => (
+  <svg
+    width="13"
+    height="13"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+    <circle cx="12" cy="9" r="2.5" />
+  </svg>
+);
+
+/* ── Component ─────────────────────────────────────────────── */
 
 export default function Portfolio() {
   const [active, setActive] = useState("About");
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close mobile menu on resize
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   const copy = () => {
@@ -172,108 +329,106 @@ export default function Portfolio() {
 
   const scrollTo = (id: string) => {
     setActive(id);
+    setMenuOpen(false);
     document
       .getElementById(id.toLowerCase())
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Nav */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between h-16">
-          <span className="font-semibold text-gray-900 tracking-tight">
-            JA<span className="text-cyan-600">.</span>
+    <div className="portfolio-root">
+      {/* ── Nav ── */}
+      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+        <div className="nav-inner">
+          <span className="nav-logo">
+            JA<span>.</span>
           </span>
-          <div className="hidden md:flex items-center gap-1">
+
+          <ul className="nav-links">
             {NAV.map((n) => (
-              <button
-                key={n}
-                onClick={() => scrollTo(n)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                  active === n
-                    ? "bg-cyan-50 text-cyan-700"
-                    : "text-gray-500 hover:text-gray-900"
-                }`}
-              >
-                {n}
-              </button>
+              <li key={n}>
+                <button
+                  onClick={() => scrollTo(n)}
+                  className={active === n ? "active" : ""}
+                >
+                  {n}
+                </button>
+              </li>
             ))}
+          </ul>
+
+          <div className="nav-cta">
+            <a href="mailto:jemalaman@gmail.com" className="btn-hire">
+              Hire me
+            </a>
+            <button
+              className={`hamburger ${menuOpen ? "open" : ""}`}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
-          <a
-            href="mailto:jemalaman@gmail.com"
-            className="text-sm font-medium px-4 py-2 rounded-full bg-cyan-600 text-white hover:bg-cyan-700 transition-colors"
-          >
-            Hire me
-          </a>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+          {NAV.map((n) => (
+            <button
+              key={n}
+              onClick={() => scrollTo(n)}
+              className={active === n ? "active" : ""}
+            >
+              {n}
+            </button>
+          ))}
         </div>
       </nav>
 
-      {/* Hero */}
-      <div className="relative overflow-hidden pt-32 pb-24 px-6">
-        {/* Subtle teal blob */}
-        <div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.06] blur-3xl"
-          style={{
-            background: "radial-gradient(circle, #06b6d4 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.04] blur-3xl"
-          style={{
-            background: "radial-gradient(circle, #7c3aed 0%, transparent 70%)",
-          }}
-        />
-
-        <div className="max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-50 border border-cyan-100 mb-8">
-            <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-            <span className="text-xs font-medium text-cyan-700">
-              Open to Flutter roles & collaborations
-            </span>
+      {/* ── Hero ── */}
+      <header className="hero">
+        <div className="hero-grid-line" />
+        <div className="hero-accent" />
+        <div className="container">
+          <div className="hero-badge">
+            <span className="hero-badge-dot" />
+            <span>Open to Flutter roles &amp; collaborations</span>
           </div>
 
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 tracking-tight leading-none mb-6">
+          <h1 className="hero-name">
             Jemal
             <br />
-            <span
-              style={{ WebkitTextStroke: "2px #0e7490", color: "transparent" }}
-            >
-              Aman
-            </span>
+            <span className="hero-name-outline">Aman</span>
           </h1>
 
-          <p className="text-xl text-gray-500 max-w-xl leading-relaxed mb-10">
-            Software engineer & Flutter specialist from{" "}
-            <span className="text-gray-900 font-medium">Jimma, Ethiopia</span>.
-            Building digital solutions for{" "}
-            <span className="text-cyan-600 font-medium">community impact</span>.
+          <p className="hero-sub">
+            Software engineer &amp; Flutter specialist from{" "}
+            <strong>Jimma, Ethiopia</strong>. Building digital solutions for{" "}
+            <strong style={{ color: "var(--teal)" }}>community impact</strong>.
           </p>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="hero-actions">
             <button
+              className="btn-primary"
               onClick={() => scrollTo("Projects")}
-              className="px-6 py-3 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-cyan-700 transition-colors"
             >
               View projects
+              <IconArrow />
             </button>
             <a
               href="https://github.com/jemalaman"
               target="_blank"
-              className="px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-medium hover:border-gray-400 transition-colors"
+              rel="noreferrer"
+              className="btn-ghost"
             >
-              GitHub ↗
+              <IconGithub />
+              GitHub
             </a>
           </div>
 
-          {/* Stats row */}
-          <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-gray-100">
+          <div className="hero-stats">
             {[
               { val: "4+", label: "Years building" },
               { val: "10k+", label: "Users served" },
@@ -281,256 +436,223 @@ export default function Portfolio() {
               { val: "2", label: "Universities" },
             ].map(({ val, label }) => (
               <div key={label}>
-                <p className="text-3xl font-bold text-gray-900">{val}</p>
-                <p className="text-sm text-gray-400 mt-0.5">{label}</p>
+                <p className="hero-stat-val">{val}</p>
+                <p className="hero-stat-label">{label}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* About */}
-      <Section id="about" className="py-24 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-xs font-semibold tracking-widest text-cyan-600 uppercase mb-4">
-              About
-            </p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Code that serves
-              <br />
-              people.
-            </h2>
-            <p className="text-gray-500 leading-relaxed mb-4">
-              I'm a Software Engineering student at{" "}
-              <span className="text-gray-900 font-medium">
-                Jimma University Institute of Technology
-              </span>{" "}
-              and Flutter developer at{" "}
-              <span className="text-gray-900 font-medium">
-                EagleLion System Technology
-              </span>
-              .
-            </p>
-            <p className="text-gray-500 leading-relaxed">
-              My work sits at the intersection of clean mobile architecture,
-              full-stack engineering, and community impact — with a growing
-              focus on AI and emerging technology.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              {
-                label: "Education",
-                value: "Jimma University",
-                color: "#0e7490",
-              },
-              {
-                label: "Company",
-                value: "EagleLion System Technology",
-                color: "#7c3aed",
-              },
-              { label: "Location", value: "Jimma, Ethiopia", color: "#059669" },
-              {
-                label: "Focus",
-                value: "Flutter · AI · Open Source",
-                color: "#d97706",
-              },
-            ].map(({ label, value, color }) => (
-              <div
-                key={label}
-                className="bg-white rounded-2xl p-5 border border-gray-100 hover:border-gray-200 transition-colors"
-              >
-                <p className="text-xs font-medium mb-2" style={{ color }}>
-                  {label}
+      {/* ── About ── */}
+      <section id="about" className="about">
+        <div className="container">
+          <Reveal>
+            <div className="about-grid">
+              <div className="about-text">
+                <p className="eyebrow">About</p>
+                <h2 className="section-title">
+                  Code that serves
+                  <br />
+                  people.
+                </h2>
+                <p>
+                  I&apos;m a Software Engineering student at{" "}
+                  <strong>Jimma University Institute of Technology</strong> and
+                  Flutter developer at{" "}
+                  <strong>EagleLion System Technology</strong>.
                 </p>
-                <p className="text-sm font-semibold text-gray-800 leading-snug">
-                  {value}
+                <p>
+                  My work sits at the intersection of clean mobile architecture,
+                  full-stack engineering, and community impact — with a growing
+                  focus on AI and emerging technology.
                 </p>
               </div>
-            ))}
-          </div>
+              <div className="about-cards">
+                {ABOUT_CARDS.map(({ label, value, icon }) => (
+                  <div className="about-card" key={label}>
+                    <div className="about-card-icon">{icon}</div>
+                    <p className="about-card-label">{label}</p>
+                    <p className="about-card-value">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
-      </Section>
+      </section>
 
-      {/* Skills */}
-      <Section id="skills" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-semibold tracking-widest text-cyan-600 uppercase mb-4">
-            Skills
-          </p>
-          <h2 className="text-4xl font-bold text-gray-900 mb-12">Tech stack</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+      {/* ── Skills ── */}
+      <section id="skills" className="skills">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Skills</p>
+            <h2 className="section-title">Tech stack</h2>
+          </Reveal>
+          <div className="skills-grid">
             {SKILLS.map(({ category, color, items }) => (
-              <div
-                key={category}
-                className="rounded-2xl border border-gray-100 p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ background: color }}
-                  />
-                  <p className="text-sm font-semibold text-gray-700">
-                    {category}
-                  </p>
+              <Reveal key={category}>
+                <div className="skill-card">
+                  <div className="skill-card-header">
+                    <span className="skill-dot" style={{ background: color }} />
+                    <span>{category}</span>
+                  </div>
+                  <div className="skill-tags">
+                    {items.map((item) => (
+                      <span
+                        key={item}
+                        className="skill-tag"
+                        style={{
+                          color,
+                          borderColor: color + "44",
+                          background: color + "10",
+                        }}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1 rounded-full text-xs font-medium border"
-                      style={{
-                        color,
-                        borderColor: color + "33",
-                        background: color + "0d",
-                      }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Projects */}
-      <Section id="projects" className="py-24 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-semibold tracking-widest text-cyan-600 uppercase mb-4">
-            Projects
-          </p>
-          <h2 className="text-4xl font-bold text-gray-900 mb-12">
-            What I've built
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {PROJECTS.map(({ title, desc, tags, color, stat }) => (
-              <div
-                key={title}
-                className="bg-white rounded-2xl border border-gray-100 p-7 hover:shadow-lg transition-all hover:-translate-y-1 group cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <span
-                    className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                    style={{ color, background: color + "15" }}
-                  >
-                    {stat}
-                  </span>
-                  <span className="text-gray-300 group-hover:text-gray-500 transition-colors text-lg">
-                    ↗
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  {title}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-5">
-                  {desc}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((t) => (
+      {/* ── Projects ── */}
+      <section id="projects" className="projects">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Projects</p>
+            <h2 className="section-title">What I&apos;ve built</h2>
+          </Reveal>
+          <div className="projects-grid">
+            {PROJECTS.map(({ title, desc, tags, color, stat, href }) => (
+              <Reveal key={title}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-card"
+                >
+                  <div className="project-card-top">
                     <span
-                      key={t}
-                      className="px-2.5 py-0.5 bg-gray-50 border border-gray-200 rounded-full text-xs text-gray-500 font-medium"
+                      className="project-stat"
+                      style={{ color, background: color + "18" }}
                     >
-                      {t}
+                      {stat}
                     </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* Timeline */}
-      <Section id="timeline" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-semibold tracking-widest text-cyan-600 uppercase mb-4">
-            Timeline
-          </p>
-          <h2 className="text-4xl font-bold text-gray-900 mb-14">
-            Career path
-          </h2>
-          <div className="relative">
-            <div className="absolute left-[72px] top-0 bottom-0 w-px bg-gray-100" />
-            <div className="space-y-8">
-              {TIMELINE.map(({ year, role, org, color }, i) => (
-                <div key={i} className="flex gap-8 items-start group">
-                  <div className="w-14 text-right flex-shrink-0">
-                    <span className="text-xs font-bold" style={{ color }}>
-                      {year}
+                    <span className="project-arrow">
+                      <IconArrow />
                     </span>
                   </div>
-                  <div
-                    className="w-3 h-3 rounded-full mt-1 flex-shrink-0 ring-4 ring-white relative z-10"
-                    style={{ background: color }}
-                  />
-                  <div className="pb-2">
-                    <p className="text-base font-semibold text-gray-900">
-                      {role}
+                  <h3 className="project-title">{title}</h3>
+                  <p className="project-desc">{desc}</p>
+                  <div className="project-tags">
+                    {tags.map((t) => (
+                      <span key={t} className="project-tag">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Timeline ── */}
+      <section id="timeline" className="timeline">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Timeline</p>
+            <h2 className="section-title">Career path</h2>
+          </Reveal>
+          <div className="timeline-list">
+            {TIMELINE.map(({ year, role, org, color }, i) => (
+              <Reveal key={i}>
+                <div className="timeline-item">
+                  <div className="timeline-year">
+                    <span style={{ color }}>{year}</span>
+                  </div>
+                  <div className="timeline-node-wrap">
+                    <span
+                      className="timeline-node"
+                      style={{ background: color }}
+                    />
+                  </div>
+                  <div className="timeline-content">
+                    <p className="timeline-role">{role}</p>
+                    <p className="timeline-org">
+                      <IconPin />
+                      {org}
                     </p>
-                    <p className="text-sm text-gray-400 mt-0.5">{org}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Contact */}
-      <Section id="contact" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="rounded-3xl p-12 text-center"
-            style={{
-              background:
-                "linear-gradient(135deg, #f0fdfd 0%, #e0f2fe 50%, #f5f3ff 100%)",
-            }}
-          >
-            <p className="text-xs font-semibold tracking-widest text-cyan-600 uppercase mb-4">
-              Contact
-            </p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Let's build something
-            </h2>
-            <p className="text-gray-500 mb-10 max-w-md mx-auto">
-              Open to Flutter roles, open-source collaborations, and speaking at
-              events.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <button
-                onClick={copy}
-                className="px-6 py-3 rounded-full bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors"
-              >
-                {copied ? "Copied!" : "jemalaman@gmail.com"}
-              </button>
-              <a
-                href="https://linkedin.com/in/jemalaman"
-                target="_blank"
-                className="px-6 py-3 rounded-full border border-gray-300 text-gray-700 text-sm font-medium hover:border-cyan-400 hover:text-cyan-700 transition-colors"
-              >
-                LinkedIn ↗
-              </a>
-              <a
-                href="https://t.me/jemalaman"
-                target="_blank"
-                className="px-6 py-3 rounded-full border border-gray-300 text-gray-700 text-sm font-medium hover:border-cyan-400 hover:text-cyan-700 transition-colors"
-              >
-                Telegram ↗
-              </a>
+      {/* ── Contact ── */}
+      <section id="contact" className="contact">
+        <div className="container">
+          <Reveal>
+            <div className="contact-card">
+              <p className="eyebrow">Contact</p>
+              <h2 className="contact-title">Let&apos;s build something</h2>
+              <p className="contact-sub">
+                Open to Flutter roles, open-source collaborations, and speaking
+                at events.
+              </p>
+              <div className="contact-links">
+                <button className="btn-email" onClick={copy}>
+                  <IconMail />
+                  {copied ? "Copied!" : "jemalaman@gmail.com"}
+                </button>
+                <a
+                  href="https://linkedin.com/in/jemalaman"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-social"
+                >
+                  <IconLinkedin />
+                  LinkedIn
+                </a>
+                <a
+                  href="https://t.me/jemalaman"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-social"
+                >
+                  <IconTelegram />
+                  Telegram
+                </a>
+                <a
+                  href="https://github.com/jemalaman"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-social"
+                >
+                  <IconGithub />
+                  GitHub
+                </a>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
-      </Section>
+      </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <span className="text-sm text-gray-400">© 2025 Jemal Aman</span>
-          <span className="text-sm text-gray-400">Jimma, Ethiopia</span>
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <span className="footer-copy">© 2025 Jemal Aman</span>
+          <span className="footer-loc">
+            <IconPin />
+            Jimma, Ethiopia
+          </span>
         </div>
       </footer>
     </div>
